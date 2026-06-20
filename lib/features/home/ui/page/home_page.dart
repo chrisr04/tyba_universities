@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final uiState = context.watch<HomeViewModel>().uiState;
-    final appBar = AppBar(title: Text(HomeStringValues.appBarTitle));
+    final appBar = AppBar(title: Text(HomeStrings.appBarTitle));
     const padding = EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0);
 
     if (uiState.isLoading) {
@@ -53,8 +53,8 @@ class _HomePageState extends State<HomePage> {
       initialIndex: 0,
       child: Scaffold(
         appBar: TabBarDefault(
-          title: HomeStringValues.appBarTitle,
-          tabs: [HomeStringValues.listMode, HomeStringValues.gridMode],
+          title: HomeStrings.appBarTitle,
+          tabs: [HomeStrings.listMode, HomeStrings.gridMode],
         ),
         body: TabBarView(
           children: [
