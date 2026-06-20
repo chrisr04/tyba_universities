@@ -17,7 +17,7 @@ class UniversityRespositoryImpl implements UniversityRepository {
       return Result.ok(universities);
     } catch (error) {
       return Result.failure(
-        NetworkException('Algo salió mal, intenta mas tarde'),
+        NetworkException('Algo salió mal, intenta más tarde'),
       );
     }
   }

@@ -8,7 +8,16 @@ class ErrorMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(spacing: 8.0, children: [Icon(Icons.error), Text(message)]),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        spacing: 8.0,
+        children: [
+          Icon(Icons.error, size: 35.0),
+          Flexible(
+            child: Text(message, style: Theme.of(context).textTheme.bodyLarge),
+          ),
+        ],
+      ),
     );
   }
 }
