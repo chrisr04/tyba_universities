@@ -32,11 +32,11 @@ class HomeViewModel extends ViewModel<HomeUiState> {
     final result = await _getUniversitiesUseCase(newOffset, uiState.limit);
 
     if (result.isOk) {
-      final pokemonList = uiState.universities + result.data;
+      final universities = uiState.universities + result.data;
       notifyUi(
         uiState.copyWith(
           offset: newOffset,
-          universities: pokemonList,
+          universities: universities,
           isLoadingNext: false,
         ),
       );

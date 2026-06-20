@@ -1,6 +1,6 @@
 # Tyba Universities
 
-Tyba Universities es un aplicación creada en Flutter (Versión 3.38.4) que utiliza una implementación del patrón MVVM junto con [Provider](https://pub.dev/packages/provider) para el manejo de estados, el paquete [dio](https://pub.dev/packages/dio) para las peticiones de red y un enfoque de Clean Architecture para la estructura del proyecto. Esto con el fin de mantener un desarrollo escalable a lo largo del tiempo.
+Tyba Universities es un aplicación creada en Flutter (Versión 3.38.4) que utiliza una implementación del patrón MVVM junto con [Provider](https://pub.dev/packages/provider) para el manejo de estados, el paquete [Dio](https://pub.dev/packages/dio) para las peticiones de red y un enfoque de Clean Architecture para la estructura del proyecto. Esto con el fin de mantener un desarrollo escalable a lo largo del tiempo.
 
 ## Instrucciones de uso
 
@@ -36,3 +36,10 @@ Luego ejecuta el siguiente comando para levantar la aplicación, recuerda tener 
 flutter run --dart-define-from-file=.env
 ```
 
+**Paso 5 (Opcional):**
+
+Si deseas ejecutar los test de integracion lo puedes hacer mediante el comando
+
+```
+flutter test integration_test/app_test.dart --dart-define-from-file=.env
+```

@@ -20,8 +20,8 @@ class _HomePageState extends State<HomePage> {
   final _listScrollController = ScrollController();
   final _gridScrollController = ScrollController();
   late final HomeViewModel _viewModel = context.read<HomeViewModel>();
-  final int listBottomLimit = 200;
-  final int gridBottomLimit = 400;
+  final int listBottomOffset = 200;
+  final int gridBottomOffset = 400;
 
   @override
   void initState() {
@@ -116,14 +116,14 @@ class _HomePageState extends State<HomePage> {
 
   void _onScrollToListBottom() {
     if (_listScrollController.position.pixels >=
-        _listScrollController.position.maxScrollExtent - listBottomLimit) {
+        _listScrollController.position.maxScrollExtent - listBottomOffset) {
       _viewModel.loadNextUniversitiesPage();
     }
   }
 
   void _onScrollToGridBottom() {
     if (_gridScrollController.position.pixels >=
-        _gridScrollController.position.maxScrollExtent - gridBottomLimit) {
+        _gridScrollController.position.maxScrollExtent - gridBottomOffset) {
       _viewModel.loadNextUniversitiesPage();
     }
   }
