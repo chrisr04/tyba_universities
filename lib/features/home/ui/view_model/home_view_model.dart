@@ -10,7 +10,7 @@ class HomeViewModel extends ViewModel<HomeUiState> {
   Future<void> loadUniversities() async {
     notifyUi(uiState.copyWith(isLoading: true));
 
-    final result = await _getUniversitiesUseCase();
+    final result = await _getUniversitiesUseCase(uiState.offset, uiState.limit);
 
     if (result.isOk) {
       final universities = result.data;
@@ -21,5 +21,28 @@ class HomeViewModel extends ViewModel<HomeUiState> {
     notifyUi(
       uiState.copyWith(isLoading: false, error: result.error.toString()),
     );
+  }
+
+  Future<void> loadNextUniversitiesPage() async {
+    if (uiState.isLoadingNext) return;
+
+    notifyUi(uiState.copyWith(isLoadingNext: true));
+
+    final newOffset = uiState.offset + uiState.limit;
+    final result = await _getUniversitiesUseCase(newOffset, uiState.limit);
+
+    if (result.isOk) {
+      final pokemonList = uiState.universities + result.data;
+      notifyUi(
+        uiState.copyWith(
+          offset: newOffset,
+          universities: pokemonList,
+          isLoadingNext: false,
+        ),
+      );
+      return;
+    }
+
+    notifyUi(uiState.copyWith(isLoadingNext: false));
   }
 }

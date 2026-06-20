@@ -17,12 +17,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _listScrollController = ScrollController();
+  final _gridScrollController = ScrollController();
   late final HomeViewModel _viewModel = context.read<HomeViewModel>();
+  final int listBottomLimit = 200;
+  final int gridBottomLimit = 400;
 
   @override
   void initState() {
     super.initState();
-
+    _listScrollController.addListener(_onScrollToListBottom);
+    _gridScrollController.addListener(_onScrollToGridBottom);
     Future.microtask(_viewModel.loadUniversities);
   }
 
@@ -30,7 +35,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final uiState = context.watch<HomeViewModel>().uiState;
     final appBar = AppBar(title: Text(HomeStrings.appBarTitle));
-    const padding = EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0);
+    const padding = EdgeInsets.all(16.0);
 
     if (uiState.isLoading) {
       return Scaffold(
@@ -61,6 +66,7 @@ class _HomePageState extends State<HomePage> {
             ListView.builder(
               padding: padding,
               itemCount: uiState.universities.length,
+              controller: _listScrollController,
               itemBuilder: (context, index) {
                 final university = uiState.universities[index];
                 return HorizontalItemCard(
@@ -73,6 +79,7 @@ class _HomePageState extends State<HomePage> {
             GridView.builder(
               padding: padding,
               itemCount: uiState.universities.length,
+              controller: _gridScrollController,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),
@@ -91,10 +98,33 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  @override
+  void dispose() {
+    _listScrollController.removeListener(_onScrollToListBottom);
+    _gridScrollController.removeListener(_onScrollToGridBottom);
+    _listScrollController.dispose();
+    _gridScrollController.dispose();
+    super.dispose();
+  }
+
   void _onItemTap(UniversityEntity university) {
     Navigator.of(context).pushNamed(
       UniversityDetailRoutes.universityDetailRoute,
       arguments: university,
     );
+  }
+
+  void _onScrollToListBottom() {
+    if (_listScrollController.position.pixels >=
+        _listScrollController.position.maxScrollExtent - listBottomLimit) {
+      _viewModel.loadNextUniversitiesPage();
+    }
+  }
+
+  void _onScrollToGridBottom() {
+    if (_gridScrollController.position.pixels >=
+        _gridScrollController.position.maxScrollExtent - gridBottomLimit) {
+      _viewModel.loadNextUniversitiesPage();
+    }
   }
 }
