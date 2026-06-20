@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tyba_universities/core/dependencies/app_dependencies.dart';
 import 'package:tyba_universities/core/router/app_router.dart';
 
 void main() {
@@ -10,9 +11,11 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: AppRouter.initialRoute,
-      routes: AppRouter.routes,
+    return AppDependencies(
+      child: MaterialApp(
+        initialRoute: AppRouter.initialRoute,
+        routes: AppRouter.routes,
+      ),
     );
   }
 }

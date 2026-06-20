@@ -1,4 +1,3 @@
-import 'package:tyba_universities/core/errors/network_exception.dart';
 import 'package:tyba_universities/core/network/http_client.dart';
 import 'package:tyba_universities/features/home/data/models/university_model.dart';
 
@@ -9,11 +8,6 @@ class UniversityRemoteDataSource {
 
   Future<List<UniversityModel>> getUniversities() async {
     final response = await _client.get('/FE-Engineer-test/universities.json');
-
-    if (response.data == null) {
-      throw NetworkException();
-    }
-
     final responseList = List<Map<String, dynamic>>.from(response.data);
     return responseList.map(UniversityModel.fromJson).toList();
   }

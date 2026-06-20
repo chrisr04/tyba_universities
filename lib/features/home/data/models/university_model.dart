@@ -13,10 +13,10 @@ class UniversityModel extends UniversityEntity {
   factory UniversityModel.fromJson(Map<String, dynamic> json) =>
       UniversityModel(
         alphaTwoCode: json['alpha_two_code'] ?? '',
-        domains: json['domains'] ?? [],
+        domains: List<String>.from(json['domains'] ?? []),
         country: json['country'] ?? '',
         stateProvince: json['state-province'],
-        webPages: json['web_pages'] ?? [],
+        webPages: List<String>.from(json['web_pages'] ?? []),
         name: json['name'] ?? '',
       );
 }
